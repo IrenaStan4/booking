@@ -14,9 +14,6 @@ public class BookPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    @FindBy(xpath = "//table/tbody/tr")
-    public List<WebElement> allRows;
-
     @FindBy(xpath = "//button[@aria-label='Godkänn alla']")
     public WebElement acceptCookies;
 
