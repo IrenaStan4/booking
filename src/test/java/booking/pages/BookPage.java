@@ -79,6 +79,7 @@ public class BookPage {
             if (dateFound) break;
         }
     }
+
     public void bookingSearch(LocalDate checkInDate, LocalDate checkOutDate)
     {
         checkInDateBox.click();
