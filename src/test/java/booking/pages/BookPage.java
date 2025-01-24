@@ -95,5 +95,4 @@ public class BookPage {
 
         hotelSearchResultItems.get(hotelItem).findElement(By.partialLinkText("Book now")).click();
     }
-
 }
