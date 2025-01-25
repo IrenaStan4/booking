@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookPage {
     public BookPage() {
@@ -53,6 +54,9 @@ public class BookPage {
     @FindBy(id = "cb_js_search_result")
     public WebElement hotelsList;
 
+    @FindBy(id = "Citybreak_bookingdetails")
+    public WebElement bookingDetails;
+
     public void selectDatePicker(LocalDate date)
     {
         int getDate = date.getDayOfMonth();
@@ -92,4 +96,17 @@ public class BookPage {
 
         hotelSearchResultItems.get(hotelItem).findElement(By.partialLinkText("Book now")).click();
     }
+
+    public List<String> getBookingDetails()
+    {
+        List<WebElement> bookingDetailsItems = bookingDetails.findElements(By.tagName("li"));
+
+        return bookingDetailsItems.stream()
+                .map(WebElement::getText)  // Map each WebElement to its text
+                .collect(Collectors.toList());
+
+    }
+
+
+
 }
