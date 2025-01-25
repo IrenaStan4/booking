@@ -19,10 +19,12 @@ public class BookTest {
         BookPage bookPage = new BookPage();
         bookPage.acceptCookies.click();
 
+        //search for booking
         LocalDate checkInTime = LocalDate.now().plusDays(1);
         LocalDate checkOutTime = LocalDate.now().plusDays(2);
         bookPage.bookingSearch(checkInTime, checkOutTime);
 
+        //validate search options
         List<String> actualBookingDetails = bookPage.getBookingDetails();
         List<String> expectedBookingDetails = new ArrayList<>();
         expectedBookingDetails.add("Area: All");
@@ -34,7 +36,15 @@ public class BookTest {
         expectedBookingDetails.add("rooms: 1");
         expectedBookingDetails.add("Guests: 2 adults");
         Assert.assertEquals(actualBookingDetails, expectedBookingDetails);
-        bookPage.selectHotel(0);
+
+        //select first hotel from the list
+        bookPage.selectHotel(0, 0);
+        String actulaChartDetails = bookPage.chartDetails.getText();
+        String expectedChartDetails =
+                "When: Sat 25 Jan 2025 - Sun 26 Jan 2025, 1 night\n" +
+                "Guests:\n" +
+                "2× Adult ";
+        Assert.assertEquals(actulaChartDetails,expectedChartDetails);
     }
 
 }

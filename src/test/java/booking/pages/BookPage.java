@@ -57,6 +57,9 @@ public class BookPage {
     @FindBy(id = "Citybreak_bookingdetails")
     public WebElement bookingDetails;
 
+    @FindBy(xpath = "//*[contains(@class, 'cb-cart__item')]//tbody")
+    public WebElement chartDetails;
+
     public void selectDatePicker(LocalDate date)
     {
         int getDate = date.getDayOfMonth();
@@ -90,11 +93,13 @@ public class BookPage {
         searchButton.click();
     }
 
-    public void selectHotel(int hotelItem) {
+    public void selectHotel(int hotelItem, int hotelSubitem) {
 
         List<WebElement> hotelSearchResultItems = hotelsList.findElements(By.xpath("//*[contains(@class, 'Citybreak_AccInfoBasic hproduct')]"));
 
         hotelSearchResultItems.get(hotelItem).findElement(By.partialLinkText("Book now")).click();
+
+        hotelSearchResultItems.get(hotelSubitem).findElement(By.xpath("//td[contains(@class, 'cb_choose')]")).click();
     }
 
     public List<String> getBookingDetails()
@@ -104,9 +109,6 @@ public class BookPage {
         return bookingDetailsItems.stream()
                 .map(WebElement::getText)  // Map each WebElement to its text
                 .collect(Collectors.toList());
-
     }
-
-
 
 }
