@@ -20,13 +20,14 @@ public class Driver {
     public static WebDriver getDriver(){
         //read the browser type you want to launch from properties file
         String browserName= ConfigReader.read("browser");
+        String websiteURL = ConfigReader.read("booking_url");
 
         if(obj==null) {
             switch (browserName.toLowerCase().trim()) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
                     obj = new ChromeDriver();
-                    obj.get("https://www2.destinationgotland.se/en/accommodation");
+                    obj.get(websiteURL);
                     obj.manage().window().maximize();
                     //obj.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     break;
@@ -35,6 +36,7 @@ public class Driver {
                     WebDriverManager.firefoxdriver().setup();
                     obj = new FirefoxDriver();
                     obj.manage().window().maximize();
+                    obj.get(websiteURL);
                     //obj.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     break;
                 default:

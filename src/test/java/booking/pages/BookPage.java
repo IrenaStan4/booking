@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +14,7 @@ public class BookPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    @FindBy(xpath = "//button[@aria-label='Godkänn alla']")
+    @FindBy(xpath = "//*[contains(@class, 'coi-banner__accept')]")
     public WebElement acceptCookies;
 
     @FindBy(id = "cb_js_geo_location_dropdown")
@@ -99,7 +98,7 @@ public class BookPage {
 
         hotelSearchResultItems.get(hotelItem).findElement(By.partialLinkText("Book now")).click();
 
-        hotelSearchResultItems.get(hotelSubitem).findElement(By.xpath("//td[contains(@class, 'cb_choose')]")).click();
+        hotelSearchResultItems.get(hotelSubitem).findElement(By.xpath("//td[contains(@class, 'cb_choose')]"));
     }
 
     public List<String> getBookingDetails()

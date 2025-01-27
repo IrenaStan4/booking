@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import booking.utility.BrowserUtil;
 public class BookTest extends TestBase{
 
     @Test
@@ -41,13 +42,12 @@ public class BookTest extends TestBase{
 
         //select first hotel from the list
         bookPage.selectHotel(0, 0);
+        BrowserUtil.waitFor(5);
         String actulaChartDetails = bookPage.chartDetails.getText();
         String expectedChartDetails =
-                "When: Sat 27 Jan 2025 - Sun 28 Jan 2025, 1 night\n" +
+                "When: " + checkInTime.format(formatter) + " - " + checkOutTime.format(formatter) + ", 1 night\n" +
                 "Guests:\n" +
                 "2× Adult ";
         Assert.assertEquals(actulaChartDetails, expectedChartDetails);
-        //Driver.closeBrowser();
     }
-
 }
