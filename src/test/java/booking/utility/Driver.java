@@ -4,8 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
 public class Driver {
     private static WebDriver obj;
@@ -18,10 +17,9 @@ public class Driver {
      * @return
      */
 
-    @BeforeMethod
     public static WebDriver getDriver(){
         //read the browser type you want to launch from properties file
-        String browserName = ConfigReader.read("browser");
+        String browserName= ConfigReader.read("browser");
 
         if(obj==null) {
             switch (browserName.toLowerCase().trim()) {
@@ -36,7 +34,6 @@ public class Driver {
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
                     obj = new FirefoxDriver();
-                    obj.get("https://www2.destinationgotland.se/en/accommodation");
                     obj.manage().window().maximize();
                     //obj.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     break;
@@ -46,6 +43,7 @@ public class Driver {
             }
 
             return obj;
+
 
         }else {
             // System.out.println("You have it just use existing one");
@@ -57,7 +55,6 @@ public class Driver {
      * Quitting the browser and setting the value of
      * WebDriver instance to null because you can re-use already quitted driver
      */
-    @AfterMethod
     public static void closeBrowser(){
         /**check if we have WebDriver instance or not
          *basically checking if obj is null or not
@@ -66,7 +63,7 @@ public class Driver {
          *make it null, because once quit it can not be used
          */
 
-        if(obj!=null){
+        if(obj!=null) {
             obj.quit();
             obj = null;
         }

@@ -1,6 +1,9 @@
 package booking.tests;
 
 import booking.pages.BookPage;
+
+import booking.tests.base.TestBase;
+import booking.utility.Driver;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -10,8 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-public class BookTest {
+public class BookTest extends TestBase{
 
     @Test
     public void BookStay()
@@ -41,10 +43,11 @@ public class BookTest {
         bookPage.selectHotel(0, 0);
         String actulaChartDetails = bookPage.chartDetails.getText();
         String expectedChartDetails =
-                "When: Sat 25 Jan 2025 - Sun 26 Jan 2025, 1 night\n" +
+                "When: Sat 27 Jan 2025 - Sun 28 Jan 2025, 1 night\n" +
                 "Guests:\n" +
                 "2× Adult ";
-        Assert.assertEquals(actulaChartDetails,expectedChartDetails);
+        Assert.assertEquals(actulaChartDetails, expectedChartDetails);
+        //Driver.closeBrowser();
     }
 
 }

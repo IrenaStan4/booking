@@ -110,5 +110,4 @@ public class BookPage {
                 .map(WebElement::getText)  // Map each WebElement to its text
                 .collect(Collectors.toList());
     }
-
 }
