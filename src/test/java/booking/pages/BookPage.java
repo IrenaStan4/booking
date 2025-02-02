@@ -1,10 +1,13 @@
 package booking.pages;
 
+import booking.utility.BrowserUtil;
 import booking.utility.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,8 +53,11 @@ public class BookPage {
     @FindBy(id = "CB_SearchButton")
     public WebElement searchButton;
 
-    @FindBy(id = "cb_js_search_result")
-    public WebElement hotelsList;
+    @FindBy(xpath = "//*[contains(@class, 'Citybreak_AccInfoBasic hproduct')]")
+    public List<WebElement> hotelsList;
+
+    @FindBy(xpath = "//div[contains(@class, 'Citybreak_BookAlt')]")
+    public List<WebElement> hotelsSubList;
 
     @FindBy(id = "Citybreak_bookingdetails")
     public WebElement bookingDetails;
@@ -92,13 +98,13 @@ public class BookPage {
         searchButton.click();
     }
 
-    public void selectHotel(int hotelItem, int hotelSubitem) {
+    public void selectHotel(int hotelItem, int hotelSubitem)
+    {
+        BrowserUtil.waitFor(5);
+        hotelsList.get(hotelItem).findElement(By.partialLinkText("Book now")).click();
 
-        List<WebElement> hotelSearchResultItems = hotelsList.findElements(By.xpath("//*[contains(@class, 'Citybreak_AccInfoBasic hproduct')]"));
-
-        hotelSearchResultItems.get(hotelItem).findElement(By.partialLinkText("Book now")).click();
-
-        hotelSearchResultItems.get(hotelSubitem).findElement(By.xpath("//td[contains(@class, 'cb_choose')]"));
+        BrowserUtil.waitFor(5);
+        hotelsSubList.get(hotelSubitem).findElement(By.xpath("//tbody//td[contains(@class, 'cb_choose')]//*[contains(@value, 'Book')]")).click();
     }
 
     public List<String> getBookingDetails()
